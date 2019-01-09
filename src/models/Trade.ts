@@ -1,34 +1,42 @@
 import {Schema, model} from 'mongoose';
-import DateTimeFormat = Intl.DateTimeFormat;
 
-export const payStatus = {
-    paid: 1,
-    unpaid: 10,
-}
-let UserSchema = new Schema({
+let TradeSchema = new Schema({
     createdAt: Date,
     updatedAt: Date,
     // timestamp:{
     //     type: Date,
     //     default:Date.now
     // },
-    firstname:{
-        type:String,
-        required:true
-    
-    },
-    lastname:{
+    name:{
         type:String,
         default:'',
         required:true
-    
+
     },
-    role_id:{
+    developer:{
+        type:String,
+        default:'',
+        required:true
+
+    },
+    plot_size:{
         type:Schema.Types.ObjectId,
         required:true,
         ref:'Role',
     },
-   
+
+    amount:{
+        type:String,
+        default:'',
+        required:true,
+        unique:true
+    },
+    fullname:{
+        type:String,
+        default:'',
+        required:true
+
+    },
     email:{
         type:String,
         default:'',
@@ -49,48 +57,42 @@ let UserSchema = new Schema({
         type:String,
         default:null
     },
+    who_are_you:{
+        type:String,
+        default:''
 
-    is_payed:{
-        type:Number,
-        default: payStatus.unpaid,
-        
     },
-    priviledge:{
-        type:Number,
-        required:true
-    },
+
     product:{
         type:String,
+        default:'',
         required:true
     },
     promo_code:{
         type:String,
-    },
-    site_visit:{
-        type:Date,
-    },
-    phone:{
-        type:Number,
+        default:'',
         required:true
     },
-    refelname:{
+    site_visit:{
         type:String,
-    },
-    refelemail:{
-        type:String,
-    },
-    refelphone:{
-        type:Number,
-    },
+        default:'',
+        required:true
 
+    },
+    phone:{
+        type:String,
+        default:'',
+        required:true
+
+    },
     // posts:[{
     //     type:Schema.Types.ObjectId,
     //     ref:'Post'
     // }]
-    
+
 
 
 });
-model('User', UserSchema);
+model('Trade', TradeSchema);
 
-export default model('User');
+export default model('Trade');

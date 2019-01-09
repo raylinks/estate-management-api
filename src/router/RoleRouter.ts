@@ -8,7 +8,7 @@ class RoleRouter{
         this.routes();
     }
 
-    public GetPosts(req: Request, res:Response):void {
+    public GetRoles(req: Request, res:Response):void {
         Role.find({})
         .then((data) => {
             const status = res.statusCode;
@@ -28,7 +28,7 @@ class RoleRouter{
 
 
     }
-    public GetPost(req: Request, res:Response):void {
+    public GetRole(req: Request, res:Response):void {
         const slug: string = req.params.slug;
         Role.findOne({ slug})
         .then((data) => {
@@ -50,12 +50,10 @@ class RoleRouter{
     }
     public CreateRole(req: Request, res:Response):void {
         const name: string = req.body.name;
-        
-        
+
         const post = new Role({
             name,
-            
-            
+
         });
         post.save()
         .then((data) => {
@@ -78,8 +76,8 @@ class RoleRouter{
      
 
     routes(){
-        this.router.get('/', this.GetPosts);
-        this.router.get('/:slug', this.GetPost);
+        this.router.get('/', this.GetRoles);
+        this.router.get('/:slug', this.GetRole);
         this.router.post('/', this.CreateRole);
      
 

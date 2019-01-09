@@ -70,12 +70,14 @@ class PropertyRouter{
         const fullname: string = req.body.fullname;
         const email: string = req.body.email;
         const phone: string = req.body.phone;
+        const identity: number = req.body.identity;
 
         const property = new Property({
             description,
             fullname,
             email,
-            phone
+            phone,
+            identity,
         });
         property.save()
         .then((data) => {
@@ -93,6 +95,39 @@ class PropertyRouter{
             });
         });
         
+    }
+
+    public CreatePropertySell(req: Request, res:Response):void {
+        const description:string = req.body.description;
+
+        const fullname: string = req.body.fullname;
+        const email: string = req.body.email;
+        const phone: string = req.body.phone;
+        const identity: number = req.body.identity;
+
+        const property = new Property({
+            description,
+            fullname,
+            email,
+            phone,
+            identity,
+        });
+        property.save()
+            .then((data) => {
+                const status = res.statusCode;
+                res.json({
+                    status,
+                    data
+                });
+            })
+            .catch((err)=> {
+                const status = res.statusCode;
+                res.json({
+                    status,
+                    err
+                });
+            });
+
     }
     public UpdateProperty(req: Request, res:Response):void {
         const slug: string = req.params.slug;
@@ -140,6 +175,7 @@ class PropertyRouter{
         this.router.get('/', this.GetProperties);
         this.router.get('/:slug', this.GetProperty);
         this.router.post('/', this.CreateProperty);
+        this.router.post('/createsell', this.CreatePropertySell);
         this.router.put('/:slug', this.UpdateProperty);
         this.router.delete('/:slug', this.DeleteProperty);
 

@@ -7,7 +7,7 @@ let PropertySchema = new Schema({
     
     description:{
         type:String,
-        default:'',
+
         required:true
     },
     fullname:{
@@ -22,8 +22,8 @@ let PropertySchema = new Schema({
     
     },
     identity:{
-        type:String,
-        default:'',
+        type:Number,
+
     
     },
     phone:{

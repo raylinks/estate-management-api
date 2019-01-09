@@ -15,35 +15,35 @@ let LocationSchema = new Schema({
     },
     name:{
         type:String,
-        default:'',
         required:true
     },
     developer:{
         type:String,
-        default:'',
         required:true
     },
     plot_size:{
         type:String,
-        default:'',
         required:true
     },
     slug:{
         type:String,
-        default:'',
         required:true,
         unique:true,
         lowercase:true
     },
     amount:{
         type:String,
-        default:'',
         required:true
     },
     bonus:{
         type:String,
-        default:''
-    }
+        required:true
+    },
+    image:{
+        type:String,
+        required:true
+    },
+    
 
 });
 export default model('Location', LocationSchema);

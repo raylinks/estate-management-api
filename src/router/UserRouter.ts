@@ -151,6 +151,7 @@ class UserRouter{
                     if(!user){
                         bcrypt.hash(req.body.password, 10, (err, hash)=>{
                             userData.password = hash
+                            console.log(hash)
                             User.create(userData)
                             .then((user:any)=> {
                                 const transporter = nodemailer.createTransport({
@@ -287,100 +288,40 @@ class UserRouter{
 
 
 
-    // public LoginUser(req: Request, res:Response):void {
-    //     User.findOne({
-    //         email: req.body.email
-    //     }).populate('role_id')
-    //     .then((user:any) => {
-    //         if(user){
-    //             if(bcrypt.compareSync(req.body.password, user.password)){
-    //                 const payload ={
-    //                     _id:user.id,
-    //                 }
-    //                 let token = jwt.sign(payload, process.env.SECRET_KEY,{
-    //                     expiresIn:1440
-    //                 })
-    //                 res.send({user:{firstname:user.firstname,
-    //                     lastname:user.lastname,
-    //                     email:user.email,
-    //                     paid_status: (user.is_payed == payStatus.paid) ? true : false,
-    //                     role:user.role_id.name},token})
-    //             }
-    //             else{
-    //                 res.status(401).send({error: 'Invalid password'})
-    //             }
-    //         }else{
-    //             res.status(401).send({success: 'User doesn\'t exist'})
-    //         }
-    //     })
-    //     .catch(err => {
-    //         res.send('error:' + err)
-    //     })
-    //  }
-
     public LoginUser(req: Request, res:Response):void {
         User.findOne({
             email: req.body.email
         }).populate('role_id')
-            .then((user:any) => {
-                if(user){
-                    if(bcrypt.compare(req.body.password, user.comparePassword)){
-                        const payload ={
-                            _id:user.id,
-                        }
-                        let token = jwt.sign(payload, process.env.SECRET_KEY,{
-                            expiresIn:1440
-                        })
-                        res.send({firstname:user.firstname,
-                            lastname:user.lastname,
-                            email:user.email,
-                            paid_status: (user.is_payed == payStatus.paid) ? true : false,
-                            role:user.role_id.name,token})
-                    }else{
-                        res.status(401).send({error: 'Invalid password'})
-                    }
-                }else{
-                    res.status(401).send({success: 'User doesn\'t exist'})
+        .then((user:any) => {
+            console.log(user)
+            console.log(req.body)
+            if(user){
+                if(bcrypt.compareSync(req.body.password, user.password)){
+                    console.log(user.password)
+                    const payload ={
+                        _id:user.id,
+                    };
+                    let token = jwt.sign(payload, process.env.SECRET_KEY,{
+                        expiresIn:1440
+                    });
+                    res.send({user:{firstname:user.firstname,
+                        lastname:user.lastname,
+                        email:user.email,
+                        paid_status: (user.is_payed == payStatus.paid) ? true : false,
+                        role:user.role_id.name},token})
                 }
-            })
-            .catch(err => {
-                res.send('error:' + err)
-            })
-    }
+                else{
+                    res.status(401).send({error: 'Invalid password'})
+                }
+            }else{
+                res.status(401).send({error: 'User doesn\'t exist'})
+            }
+        })
+        .catch(err => {
+            res.send('error:' + err)
+        })
+     }
 
-
-    // async LoginUser(req ,res) {
-    //     try{
-    //         const {email,password} = req.body;
-    //         const user = await  User.findOne({
-    //             where:{
-    //                 email:email
-    //             }
-    //         });
-    //         console.log('user', user.toJSON())
-    //         if(!user){
-    //             return res.status(403).send({
-    //                 error:'The login info is incorect'
-    //             })
-    //         }
-    //
-    //         const isPasswordValid = password === user.password
-    //         if(!isPasswordValid){
-    //             return res.status(403).send({
-    //                 error:'The login info is incorect'
-    //             })
-    //         }
-    //
-    //         const userJson = user.toJSON();
-    //         res.send({
-    //             user:userJson
-    //         })
-    //     }catch (err){
-    //         res.status(500).send({
-    //             error: 'An error has occur trying to login  '
-    //         })
-    //     }
-    // }
 
 
     public  TradeBuyValidation (req: any, res:Response, next) {
@@ -796,7 +737,7 @@ class UserRouter{
         this.router.post('/createtradebuy',this.TradeBuyValidation, this.CreateTradeBuy);
         this.router.post('/createtradesell',this.TradeSellValidation, this.CreateTradeSell);
         this.router.post('/', this.CreateUser);
-        this.router.get('/:_id(\\d+)/', this.GetUser);
+        this.router.get('/:_id', this.GetUser);
         this.router.get('/tradebuyers', this.getTradeBuyers);
         this.router.get('/tradesellers', this.getTradeSellers);
         this.router.post('/role', this.UpdateUserRole);

@@ -18,6 +18,7 @@ import LocationRouter from './router/LocationRouter';
 import RoleRouter from './router/RoleRouter';
 import PropertyRouter from './router/PropertyRouter';
 import PaidRouter from './router/PaidRouter';
+import LandRouter from './router/LandRouter';
 
 
 class Server {
@@ -71,6 +72,7 @@ class Server {
         this.app.use('/api/v1/role', RoleRouter);
         this.app.use('/api/v1/property', PropertyRouter);
         this.app.use('/api/v1/paid', PaidRouter);
+        this.app.use('/api/v1/land', LandRouter);
         
         
         

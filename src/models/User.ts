@@ -57,7 +57,7 @@ let UserSchema = new Schema({
     },
     priviledge:{
         type:Number,
-        required:true
+
     },
     product:{
         type:String,
@@ -67,7 +67,7 @@ let UserSchema = new Schema({
         type:String,
     },
     site_visit:{
-        type:Date,
+        type:String,
     },
     phone:{
         type:Number,

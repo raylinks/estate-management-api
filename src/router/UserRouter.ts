@@ -334,12 +334,14 @@ class UserRouter{
             lastname: Joi.string().required(),
             email: Joi.string().email({ minDomainAtoms: 2 }),
             password: Joi.string().required(),
-            pasword_confirmation: Joi.any().equal(Joi.ref('password')).required(),
+            password_confirmation: Joi.any().equal(Joi.ref('password')).required(),
             phone: Joi.number().required(),
+            priviledge: Joi.number().required(),
 
         }
         const{error,value} = Joi.validate(req.body, schema)
         if(error){
+            console.log(error.details)
             switch(error.details[0].context.key){
                 case 'product':
                     res.status(400).send({
@@ -349,6 +351,11 @@ class UserRouter{
                 case 'promo_code':
                     res.status(400).send({
                         error:'you must select a promo code'
+                    })
+                    break
+                case 'priviledge':
+                    res.status(400).send({
+                        error:'you must select a  priviledge'
                     })
                     break
 
@@ -378,7 +385,7 @@ class UserRouter{
                         error:'you must provide a valid password'
                     })
                     break
-                case 'pasword_confirmation':
+                case 'password_confirmation':
                     res.status(400).send({
                         error:'confirm password doeznt match your password'
                     })
@@ -390,7 +397,11 @@ class UserRouter{
                     break
 
                 default:
-                    next()
+                    console.log(error.details)
+                    res.status(400).send({
+                        error:'Invalid information'
+                    })
+                    break
             }
         }else{
             next()
@@ -426,9 +437,11 @@ class UserRouter{
                                 User.create(userData)
                                     .then((user:any)=> {
                                         const transporter = nodemailer.createTransport({
-                                            service: "teamltd.org",
+                                            host: "mail.teamltd.org",
+                                            port: 25,
+                                            secure:false,
                                             auth:{
-                                                user: 'communications',
+                                                user: 'communications@teamltd.org',
                                                 pass: "srayimd0"
                                             }
                                         })
@@ -477,18 +490,19 @@ class UserRouter{
 
     public  TradeSellValidation (req: any, res:Response, next) {
         const schema ={
-            product: Joi.number().required(),
+            product: Joi.string().required(),
             promo_code: Joi.string().required(),
             site_visit: Joi.string().required(),
             refelname: Joi.string().required(),
             refelemail: Joi.string().email({ minDomainAtoms: 2 }),
-            refelphone: Joi.string().required(),
+            refelphone: Joi.number().required(),
             firstname: Joi.string().required(),
             lastname: Joi.string().required(),
             email: Joi.string().email({ minDomainAtoms: 2 }),
             password: Joi.string().required(),
-            pasword_confirmation: Joi.any().equal(Joi.ref('password')).required(),
+            password_confirmation: Joi.any().equal(Joi.ref('password')).required(),
             phone: Joi.number().required(),
+            priviledge: Joi.number().required(),
 
 
         }
@@ -497,12 +511,17 @@ class UserRouter{
             switch(error.details[0].context.key){
                 case 'product':
                     res.status(400).send({
-                        error:'you must provide a valid product'
+                        error:'you must select a product'
                     })
                     break
                 case 'promo_code':
                     res.status(400).send({
                         error:'you must provide a valid promo code'
+                    })
+                    break
+                case 'priviledge':
+                    res.status(400).send({
+                        error:'you must provide a priviledge'
                     })
                     break
                 case 'site_visit':
@@ -547,7 +566,7 @@ class UserRouter{
                     })
 
                     break
-                case 'pasword_confirmation':
+                case 'password_confirmation':
                     res.status(400).send({
                         error:'confirm password doeznt match your password'
                     })
@@ -559,7 +578,11 @@ class UserRouter{
                     break
 
                 default:
-                    next()
+                    console.log(error.details)
+                    res.status(400).send({
+                        error:'Invalid information'
+                    })
+                    break
             }
         }else{
             next()
@@ -732,18 +755,20 @@ class UserRouter{
     routes(){
          this.router.get('/', this.GetUsers);
         this.router.post('/login', this.LoginUser);
-         this.router.get('/:_id', this.GetUser);
+        this.router.get('/tradebuyers', this.getTradeBuyers);
+        this.router.get('/tradesellers', this.getTradeSellers);
         this.router.put('/:_id', this.UpdateUser);
+        this.router.get('/:_id', this.GetUser);
+        this.router.delete('/:_id', this.DeleteUser);
+
+
         this.router.post('/createtradebuy',this.TradeBuyValidation, this.CreateTradeBuy);
         this.router.post('/createtradesell',this.TradeSellValidation, this.CreateTradeSell);
         this.router.post('/', this.CreateUser);
-        this.router.get('/:_id', this.GetUser);
-        this.router.get('/tradebuyers', this.getTradeBuyers);
-        this.router.get('/tradesellers', this.getTradeSellers);
+
         this.router.post('/role', this.UpdateUserRole);
         this.router.post('/forget', this.ForgetPassword);
         this.router.post('/reset', this.ResetPassword);
-        this.router.delete('/:_id(\\d+)/', this.DeleteUser);
         this.router.post('/contact', this.ContactUs);
         //this.router.get('/details', this.getUserDetails);
 

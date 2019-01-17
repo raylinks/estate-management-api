@@ -415,6 +415,7 @@ class UserRouter{
     public CreateTradeBuy(req: Request, res:Response):void {
             Role.findOne({name:'user'})
                 .then((role)=>{
+                console.log(role);
                     const userData = {
                         firstname: req.body.firstname,
                         lastname:  req.body.lastname,

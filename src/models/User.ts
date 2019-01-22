@@ -28,7 +28,7 @@ let UserSchema = new Schema({
         required:true,
         ref:'Role',
     },
-   
+
     email:{
         type:String,
         default:'',

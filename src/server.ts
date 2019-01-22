@@ -7,7 +7,6 @@ import * as helmet from 'helmet';
 import * as cors from 'cors';
 import * as bcrypt from 'bcrypt';
 
-
 //import routers
 import PostRouter from './router/PostRouter';
 import UserRouter from './router/UserRouter'; 
@@ -36,7 +35,7 @@ class Server {
        // set up mongoose
         // const MONGO_URI = 'mongodb://localhost:27017/blogg';
         // mongoose.connect(MONGO_URI  || process.env.MONGO_URI);
-        mongoose.connect("mongodb://localhost:27017/neww", 
+        mongoose.connect("mongodb://localhost:27017/neww",
         { useNewUrlParser: true }).then((res)=>{
             console.log("coonect sucess")
         }
@@ -44,13 +43,14 @@ class Server {
             console.log("conect fail");
         });
         
-        
 
         //config
         this.app.use(bodyParser.urlencoded({extended:true}));
         this.app.use(bodyParser.json());
         this.app.use(logger('dev'));
-        this.app.use('./uploads', express.static('uploads'));
+        //this.app.use('./uploads', express.static('uploads'));
+        this.app.use(express.static('uploads'));
+
         this.app.use(helmet());
         this.app.use(compression());
         this.app.use(cors());

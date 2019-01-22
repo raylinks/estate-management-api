@@ -106,6 +106,7 @@ class UserRouter{
                 const status = res.statusCode;
                 res.json({
                     status,
+        
                     data
                 })
             })
@@ -116,7 +117,24 @@ class UserRouter{
                     err
                 })
             })
+    }
 
+    public getTopRadio (req:Request, res:Response){
+        User.find({promo_code:"TopRadio"})
+            .then((data)=>{
+            const status = res.statusCode;
+            res.json({
+                status,
+                data
+            })
+            })
+            .catch((err)=>{
+            const status = res.statusCode;
+            res.json({
+                status,
+                err
+            })
+            })
     }
 
     // public getUserDetails(req: Request, res: Response){
@@ -759,15 +777,13 @@ class UserRouter{
         this.router.post('/login', this.LoginUser);
         this.router.get('/tradebuyers', this.getTradeBuyers);
         this.router.get('/tradesellers', this.getTradeSellers);
+        this.router.get('/promocode', this.getTopRadio);
+        this.router.delete('/:id', this.DeleteUser);
         this.router.put('/:_id', this.UpdateUser);
         this.router.get('/:_id', this.GetUser);
-        this.router.delete('/:_id', this.DeleteUser);
-
-
         this.router.post('/createtradebuy',this.TradeBuyValidation, this.CreateTradeBuy);
         this.router.post('/createtradesell',this.TradeSellValidation, this.CreateTradeSell);
         this.router.post('/', this.CreateUser);
-
         this.router.post('/role', this.UpdateUserRole);
         this.router.post('/forget', this.ForgetPassword);
         this.router.post('/reset', this.ResetPassword);

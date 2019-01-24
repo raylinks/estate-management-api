@@ -11,12 +11,12 @@ const path = require('path');
 //Set Storage engine
 const storage = multer.diskStorage({
     destination:function(req, file, cb){
-        cb(null, './uploads/');
+        cb(null, '../uploads/');
     },
     filename: function (req,file,cb) {
         //cb(null, new Date().toISOString() + file.originalname);
-        //cb(null, new Date().getTime() + '-' + file.originalname);
-        cb(null,file.fieldname +  '-' + Date.now() + path.extname(file.originalname));
+        cb(null, new Date().getTime() + '-' + file.originalname);
+        //cb(null,file.fieldname +  '-' + Date.now() + path.extname(file.originalname));
     }
 });
 

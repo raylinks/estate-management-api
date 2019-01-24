@@ -227,6 +227,26 @@ class LocationRouter{
                 console.log(err);
             })
     }
+    public DeleteLocation(req: Request, res:Response):void {
+        const id: number = req.params._id;
+        Location.findOneAndRemove({ id})
+            .then((data) => {
+                const status = res.statusCode;
+                res.json({
+                    status,
+                    data
+                });
+
+            })
+            .catch((err)=> {
+                const status = res.statusCode;
+                res.json({
+                    status,
+                    err
+                });
+            })
+
+    }
 
 
 
@@ -235,6 +255,7 @@ class LocationRouter{
 
         this.router.post('/', upload.single('image'),this.reqHeaderCors, this.LocationValidate, this.CreateLocation);
         this.router.get('/getlocations/:slug', this.GetLocationsForState, );
+        this.router.delete('/:_id', this.DeleteLocation);
         // this.router.get('/getlocations/:slug', this.GetLocationsForState);
 
 

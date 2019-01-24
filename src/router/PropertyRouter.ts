@@ -151,25 +151,26 @@ class PropertyRouter{
         
     }
     public DeleteProperty(req: Request, res:Response):void {
-        const slug: string = req.params.slug;
-        Property.findOneAndRemove({ slug})
-        .then((data) => {
-            const status = res.statusCode;
-            res.json({
-                status,
-                data
-            });
+        const id: number = req.params._id;
+        Property.findOneAndRemove({ id})
+            .then((data) => {
+                const status = res.statusCode;
+                res.json({
+                    status,
+                    data
+                });
 
-        })
-        .catch((err)=> {
-            const status = res.statusCode;
-            res.json({
-                status,
-                err
-            });
-        })
-        
+            })
+            .catch((err)=> {
+                const status = res.statusCode;
+                res.json({
+                    status,
+                    err
+                });
+            })
+
     }
+
 
     routes(){
         this.router.get('/', this.GetProperties);
@@ -177,7 +178,7 @@ class PropertyRouter{
         this.router.post('/', this.CreateProperty);
         this.router.post('/createsell', this.CreatePropertySell);
         this.router.put('/:slug', this.UpdateProperty);
-        this.router.delete('/:slug', this.DeleteProperty);
+        this.router.delete('/:_id', this.DeleteProperty);
 
     }
 }

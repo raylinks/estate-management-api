@@ -65,7 +65,6 @@ class StateRouter{
     public CreateState(req: Request, res:Response):void {
         const state: string = req.body.state;
         const slug: string = req.body.slug;
-        
         const post = new State({
             state,
             slug
@@ -86,16 +85,38 @@ class StateRouter{
                 err
             });
         });
-        
     }
 
-    
-    
-     
+    public DeleteState(req: Request, res:Response):void {
+        const id: number = req.params._id;
+        State.findOneAndRemove({ id})
+            .then((data) => {
+                const status = res.statusCode;
+                res.json({
+                    status,
+                    data
+                });
+
+            })
+            .catch((err)=> {
+                const status = res.statusCode;
+                res.json({
+                    status,
+                    err
+                });
+            })
+
+    }
+
+
+
+
+
 
     routes(){
         this.router.get('/', this.GetStates);
         this.router.post('/',this. StateValidation, this.CreateState);
+        this.router.delete('/:_id', this.DeleteState);
      
 
     }

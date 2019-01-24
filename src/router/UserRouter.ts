@@ -322,11 +322,16 @@ class UserRouter{
                     let token = jwt.sign(payload, process.env.SECRET_KEY,{
                         expiresIn:1440
                     });
-                    res.send({user:{firstname:user.firstname,
-                        lastname:user.lastname,
-                        email:user.email,
-                        paid_status: (user.is_payed == payStatus.paid) ? true : false,
-                        role:user.role_id.name},token})
+                    res.send({
+                        user:{
+                            firstname:user.firstname,
+                            lastname:user.lastname,
+                            email:user.email,
+                            paid_status: (user.is_payed == payStatus.paid) ? true : false,
+                            role:user.role_id.name
+                        },
+                        token
+                    })
                 }
                 else{
                     res.status(401).send({error: 'Invalid password'})
@@ -752,8 +757,8 @@ class UserRouter{
         })
     }
     public DeleteUser(req: Request, res:Response):void {
-      const id: number = req.params._id;
-        User.findOneAndRemove({ id})
+      const _id: number = req.params._id;
+        User.findOneAndRemove({ _id})
         .then((data) => {
             const status = res.statusCode;
             res.json({
@@ -777,6 +782,7 @@ class UserRouter{
         this.router.post('/login', this.LoginUser);
         this.router.get('/tradebuyers', this.getTradeBuyers);
         this.router.get('/tradesellers', this.getTradeSellers);
+        this.router.get('/topradio', this.getTopRadio);
         this.router.get('/promocode', this.getTopRadio);
         this.router.delete('/:id', this.DeleteUser);
         this.router.put('/:_id', this.UpdateUser);

@@ -48,8 +48,8 @@ class Server {
         this.app.use(bodyParser.urlencoded({extended:true}));
         this.app.use(bodyParser.json());
         this.app.use(logger('dev'));
-        //this.app.use('./uploads', express.static('uploads'));
-        this.app.use(express.static('uploads'));
+        this.app.use('./uploads', express.static('uploads'));
+        //this.app.use(express.static('uploads'));
 
         this.app.use(helmet());
         this.app.use(compression());

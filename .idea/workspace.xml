@@ -55,8 +55,8 @@
       <file leaf-file-name="LocationRouter.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/router/LocationRouter.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+            <state relative-caret-position="79">
+              <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -250,15 +250,16 @@
       <workItem from="1548104320490" duration="8350000" />
       <workItem from="1548158600024" duration="1535000" />
       <workItem from="1548164093725" duration="10129000" />
-      <workItem from="1548312848779" duration="8676000" />
+      <workItem from="1548312848779" duration="9272000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="221746000" />
+    <option name="totallyTimeSpent" value="222342000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="1" width="1364" height="724" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26150307" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
@@ -663,8 +664,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/router/LocationRouter.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+        <state relative-caret-position="79">
+          <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
           <folding />
         </state>
       </provider>

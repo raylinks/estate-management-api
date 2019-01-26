@@ -41,7 +41,8 @@ class UserRouter{
     }
 
     public GetUsers(req: Request, res:Response):void {
-
+        console.log(process.cwd());
+        
         User.find({})
         .then((data) => {
             const status = res.statusCode;

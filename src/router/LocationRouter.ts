@@ -10,8 +10,8 @@ const path = require('path');
 
 //Set Storage engine
 const storage = multer.diskStorage({
-    destination:function(req, file, cb){
-        cb(null,  '../../uploads/');
+    destination: function (req, file, cb) {
+        cb(null,  './uploads/');
     },
     filename: function (req,file,cb) {
         //cb(null, new Date().toISOString() + file.originalname);
@@ -100,7 +100,8 @@ class LocationRouter{
     }
 
     public CreateLocation (req: any, res:Response):void {
-
+        
+        
         console.log(req.body)
         console.log(req.file)
         const name: string = req.body.name;

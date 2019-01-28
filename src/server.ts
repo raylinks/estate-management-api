@@ -17,7 +17,10 @@ import LocationRouter from './router/LocationRouter';
 import RoleRouter from './router/RoleRouter';
 import PropertyRouter from './router/PropertyRouter';
 import PaidRouter from './router/PaidRouter';
+import EstateRouter from './router/EstateRouter';
 import LandRouter from './router/LandRouter';
+import EstateDetailsRouter from './router/EstateDetailsRouter';
+
 
 
 class Server {
@@ -69,6 +72,8 @@ class Server {
         this.app.use('/api/v1/estatesdev', EstatedevRouter);
         this.app.use('/api/v1/state', StateRouter);
         this.app.use('/api/v1/location', LocationRouter);
+        this.app.use('/api/v1/estate', EstateRouter);
+        this.app.use('/api/v1/estatedetails', EstateDetailsRouter);
         this.app.use('/api/v1/role', RoleRouter);
         this.app.use('/api/v1/property', PropertyRouter);
         this.app.use('/api/v1/paid', PaidRouter);

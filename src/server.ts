@@ -20,6 +20,8 @@ import PaidRouter from './router/PaidRouter';
 import EstateRouter from './router/EstateRouter';
 import LandRouter from './router/LandRouter';
 import EstateDetailsRouter from './router/EstateDetailsRouter';
+import TradeRouter from './router/TradeRouter';
+import ClientRouter from './router/ClientRouter';
 
 
 
@@ -78,10 +80,11 @@ class Server {
         this.app.use('/api/v1/property', PropertyRouter);
         this.app.use('/api/v1/paid', PaidRouter);
         this.app.use('/api/v1/land', LandRouter);
-        
-        
-        
-   
+        this.app.use('/api/v1/trade', TradeRouter);
+        this.app.use('/api/v1/client', ClientRouter);
+
+
+
 
     }
 }

@@ -1,12 +1,17 @@
 import {Router, Request,Response, NextFunction} from 'express';
 
-import Trade from '../models/Trade';
-
+import Client from '../models/Client';
+const jwt = require('jsonwebtoken');
 import { Promise } from 'mongoose';
 // import nodemailer from 'nodemailer';
 const Joi = require('joi');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+
+
+'use strict'
+
+process.env.SECRET_KEY = 'secret'
 
 
 const schema = {
@@ -24,56 +29,59 @@ const schema = {
 
 
 
-class TradeRouter{
+class ClientRouter{
     router :Router;
     constructor(){
         this.router =Router();
         this.routes();
     }
 
-    public GetTrade(req: Request, res:Response):void {
 
-        Trade.find({})
-            .then((data) => {
-                const status = res.statusCode;
-                res.json({
-                    status,
-                    data
-                });
+    public CreateProduct(req: Request, res:Response):void {
+        // const token = ;
+        // const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        // console.dir(decoded.email);
+        const product_name: string = req.body.params.product_name;
+        const promo_code: string = req.body.params.promo_code;
+        const inspection: string = req.body.params.inspection;
+        // const user: string =decoded.email;
+        console.dir(req);
+        const user: string =   jwt.verify(req.body.headers.Authorization.split(" ")[1], process.env.SECRET_KEY).email;
 
-            })
-            .catch((err)=> {
-                const status = res.statusCode;
-                res.json({
-                    status,
-                    err
-                });
-            })
-    }
-
-    public CreateTrade(req: Request, res:Response):void {
-        const firstname: string = req.body.firstname;
-        const lastname: string = req.body.lastname;
-        const phone: string = req.body.phone;
-        const product: string = req.body.product;
-        const promo_code: string = req.body.promo_code;
-        const inspection: string = req.body.inspection;
-        const trade = new Trade({
-            firstname,
-            lastname,
-            phone,
-            product,
+        const client = new Client({
+            product_name,
             promo_code,
             inspection,
+            user,
+
 
         });
-        trade.save()
+        client.save()
+            .then((data) => {
+                const status = res.statusCode;
+                res.json({
+                    status,
+
+                });
+            }) .catch((err)=> {
+            const status = res.statusCode;
+            res.json({
+                status,
+                err
+            });
+        });
+
+    }
+    public GetProduct(req: Request, res:Response):void {
+
+        Client.find({})
             .then((data) => {
                 const status = res.statusCode;
                 res.json({
                     status,
                     data
                 });
+
             })
             .catch((err)=> {
                 const status = res.statusCode;
@@ -81,13 +89,15 @@ class TradeRouter{
                     status,
                     err
                 });
-            });
+            })
     }
+
 
 
     routes(){
-        this.router.get('/', this.GetTrade);
-        this.router.post('/', this.CreateTrade);
+
+        this.router.post('/', this.CreateProduct);
+        this.router.get('/', this.GetProduct);
 
 
 
@@ -95,7 +105,7 @@ class TradeRouter{
 }
 
 //export
-const TradeRoutes = new TradeRouter();
-TradeRoutes.routes();
+const ClientRoutes = new ClientRouter();
+ClientRoutes.routes();
 
-export default TradeRoutes.router;
+export default ClientRoutes.router;

@@ -50,37 +50,14 @@ let UserSchema = new Schema({
         default:null
     },
 
-    is_payed:{
-        type:Number,
-        default: payStatus.unpaid,
-        
-    },
-    priviledge:{
-        type:Number,
-
-    },
-    product:{
-        type:String,
-        required:true
-    },
-    promo_code:{
-        type:String,
-    },
-    site_visit:{
-        type:String,
-    },
+    // is_payed:{
+    //     type:Number,
+    //     default: payStatus.unpaid,
+    //
+    // },
     phone:{
         type:Number,
         required:true
-    },
-    refelname:{
-        type:String,
-    },
-    refelemail:{
-        type:String,
-    },
-    refelphone:{
-        type:Number,
     },
 
     // posts:[{

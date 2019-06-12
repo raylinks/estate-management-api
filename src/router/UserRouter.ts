@@ -41,8 +41,12 @@ class UserRouter{
     }
 
     public GetUsers(req: Request, res:Response):void {
-        console.log(process.cwd());
-        
+
+        //  const token = req.headers.authorization.split(" ")[1];
+        // const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        // console.dir([decoded.email]);
+       // console.dir(decoded);
+      //  console.dir(decoded);
         User.find({})
         .then((data) => {
             const status = res.statusCode;
@@ -153,14 +157,10 @@ class UserRouter{
                 const userData = {
                     firstname: req.body.firstname,
                     lastname:  req.body.lastname,
-                    username:  req.body.username,
                     email:  req.body.email,
                     password: req.body.password,
                     phone:  req.body.phone,
                     role_id: role._id,
-                    product: req.body.product,
-                    promo_code: req.body.promo_code,
-                    site_visit: req.body.site_visit
 
                 //const posts: string[]  = req.body.posts;
                 }
@@ -319,6 +319,8 @@ class UserRouter{
                     console.log(user.password)
                     const payload ={
                         _id:user.id,
+                        firstname: user.firstname,
+                        email:user.email
                     };
                     let token = jwt.sign(payload, process.env.SECRET_KEY,{
                         expiresIn:1440
@@ -790,8 +792,8 @@ class UserRouter{
         this.router.get('/:_id', this.GetUser);
         this.router.post('/createtradebuy',this.TradeBuyValidation, this.CreateTradeBuy);
         this.router.post('/createtradesell',this.TradeSellValidation, this.CreateTradeSell);
-        this.router.post('/', this.CreateUser);
-        this.router.post('/role', this.UpdateUserRole);
+        this.router.post('/signup', this.CreateUser);
+        this.router.post('/rcole', this.UpdateUserRole);
         this.router.post('/forget', this.ForgetPassword);
         this.router.post('/reset', this.ResetPassword);
         this.router.post('/contact', this.ContactUs);

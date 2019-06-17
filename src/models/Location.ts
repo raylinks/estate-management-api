@@ -41,7 +41,7 @@ let LocationSchema = new Schema({
     },
     image:{
         type:String,
-        required:true
+        //required:true
     },
     
 

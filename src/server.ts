@@ -40,7 +40,7 @@ class Server {
        // set up mongoose
         // const MONGO_URI = 'mongodb://localhost:27017/blogg';
         // mongoose.connect(MONGO_URI  || process.env.MONGO_URI);
-        mongoose.connect("mongodb://localhost:27017/neww",
+        mongoose.connect("mongodb://127.0.0.1:27017/neww",
         { useNewUrlParser: true }).then((res)=>{
             console.log("coonect sucess")
         }

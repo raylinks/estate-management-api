@@ -9,8 +9,8 @@
     "start": "tsc && node ./build/index.js"
   },
   "dependencies": {
-    "@types/bcrypt": "^3.0.0",
-    "bcrypt": "3.0.0",
+    "@types/bcrypt": "^3.0.1",
+    "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cjs-loader": "^0.1.0",

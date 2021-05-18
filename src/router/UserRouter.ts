@@ -305,8 +305,6 @@ class UserRouter{
                         
     }
 
-
-
     public LoginUser(req: Request, res:Response):void {
         User.findOne({
             email: req.body.email
@@ -347,8 +345,6 @@ class UserRouter{
             res.send('error:' + err)
         })
      }
-
-
 
     public  TradeBuyValidation (req: any, res:Response, next) {
         const schema ={

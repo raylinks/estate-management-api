@@ -16,7 +16,7 @@
     "cjs-loader": "^0.1.0",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "helmet": "^3.14.0",
     "joi": "^14.3.0",
     "jsonwebtoken": "^8.3.0",
